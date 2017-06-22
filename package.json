@@ -1,0 +1,112 @@
+{
+    "name": "vscode-asciidoc",
+    "displayName": "AsciiDoc",
+    "description": "Live preview (with AsciiDoctor) and syntax highlighting.",
+    "version": "0.0.1",
+    "publisher": "stayfool",
+    "author": {
+        "name": "stayfool",
+        "email": "jych1224@163.com"
+    },
+    "license": "MIT",
+    "readme": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stayfool/vscode-asciidoc"
+    },
+    "galleryBanner": {
+        "color": "#78d6f0",
+        "theme": "light"
+    },
+    "icon": "images/icon.png",
+    "main": "./out/src/extension",
+    "engines": {
+        "vscode": "^1.13.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "activationEvents": [
+        "onCommand:asciidoc.preview",
+        "onCommand:asciidoc.previewToSide"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "asciidoc",
+                "aliases": [
+                    "AsciiDoc",
+                    "AsciiDoctor"
+                ],
+                "extensions": [
+                    ".adoc",
+                    ".asciidoc"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "asciidoc",
+                "scopeName": "text.asciidoc",
+                "path": "./syntaxes/asciidoc.tmLanguage"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "AsciiDoc Option Configuration",
+            "properties": {
+                "asciidoc.showtitle": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "show header level"
+                },
+                "asciidoc.icons": {
+                    "type": "string",
+                    "default": "font",
+                    "enum": [
+                        "font",
+                        "text",
+                        ""
+                    ],
+                    "description": "used for admonition labels, callout numbers and inline symbols"
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "asciidoc.previewToSide",
+                "key": "ctrl+shift+r",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "asciidoc.preview",
+                "key": "ctrl+k r",
+                "when": "editorTextFocus"
+            }
+        ],
+        "commands": [
+            {
+                "command": "asciidoc.preview",
+                "title": "Toggle Preview",
+                "category": "AsciiDoc"
+            },
+            {
+                "command": "asciidoc.previewToSide",
+                "title": "Open Preview to the Side",
+                "category": "AsciiDoc"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "./node_modules/.bin/tsc -p ./",
+        "compile": "./node_modules/.bin/tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "@types/node": "^8.0.1",
+        "typescript": "^2.3.4"
+    },
+    "dependencies": {
+        "asciidoctor.js": "^1.5.6-preview.2"
+    }
+}
