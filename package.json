@@ -2,7 +2,7 @@
     "name": "vscode-asciidoc",
     "displayName": "AsciiDoc",
     "description": "Live preview (with AsciiDoctor) and syntax highlighting.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "stayfool",
     "author": {
         "name": "stayfool",
