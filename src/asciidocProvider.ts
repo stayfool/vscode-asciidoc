@@ -8,28 +8,28 @@ import {
     TextDocument,
     EventEmitter,
     TextDocumentContentProvider
-} from 'vscode';
+} from 'vscode'
 import * as Asciidoctor from 'asciidoctor.js'
 
 export default class AsciidocProvider implements TextDocumentContentProvider {
-    static scheme = 'asciidoc-preview';
+    static scheme = 'asciidoc-preview'
 
-    private _onDidChange = new EventEmitter<Uri>();
-    private lastPreviewHTML;
-    private asciidoctor;
-    private options;
+    private _onDidChange = new EventEmitter<Uri>()
+    private lastPreviewHTML
+    private asciidoctor
+    private options
 
     constructor() {
-        this.asciidoctor = Asciidoctor();
+        this.asciidoctor = Asciidoctor()
         this.options = {
             attributes: []
         }
 
-        const config = workspace.getConfiguration('asciidoc');
+        const config = workspace.getConfiguration('asciidoc')
         if (config.get('showtitle', true))
             this.options.attributes.push('showtitle')
 
-        const icons = config.get('icons', 'font');
+        const icons = config.get('icons', 'font')
         if (icons)
             this.options.attributes.push('icons:' + icons)
     }
@@ -43,25 +43,26 @@ export default class AsciidocProvider implements TextDocumentContentProvider {
     }
 
     public provideTextDocumentContent(uri: Uri): string | Thenable<string> {
-        let editor = window.activeTextEditor;
+        let editor = window.activeTextEditor
         if (!this.isAsciidocEditor(editor)) {
             if (this.lastPreviewHTML) {
-                return this.lastPreviewHTML;
+                return this.lastPreviewHTML
             }
-            return this.errorSnippet("Active editor doesn't show an AsciiDoc document - no properties to preview.");
+            return this.errorSnippet("Active editor doesn't show an AsciiDoc document - no properties to preview.")
         }
         return new Promise<string>((resolve, reject) => {
-            this.lastPreviewHTML = this.asciidoctor.convert(editor.document.getText(), this.options);
-            resolve(this.lastPreviewHTML);
-        });
+            this.lastPreviewHTML = this.asciidoctor.convert(editor.document.getText(), this.options)
+            resolve(this.lastPreviewHTML)
+            console.log(this.lastPreviewHTML)
+        })
     }
 
     public update(uri: Uri) {
-        this._onDidChange.fire(uri);
+        this._onDidChange.fire(uri)
     }
 
     get onDidChange(): Event<Uri> {
-        return this._onDidChange.event;
+        return this._onDidChange.event
     }
 
     private errorSnippet(error: string): string {
@@ -70,6 +71,6 @@ export default class AsciidocProvider implements TextDocumentContentProvider {
                     <h1>
                     ${error}
                     </h1>
-                </body>`;
+                </body>`
     }
 }
