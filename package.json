@@ -2,7 +2,7 @@
     "name": "vscode-asciidoc",
     "displayName": "AsciiDoc",
     "description": "Live preview (with AsciiDoctor) and syntax highlighting.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "stayfool",
     "author": {
         "name": "stayfool",
@@ -31,49 +31,23 @@
         "onCommand:asciidoc.previewToSide"
     ],
     "contributes": {
-        "languages": [
-            {
-                "id": "asciidoc",
-                "aliases": [
-                    "AsciiDoc",
-                    "AsciiDoctor"
-                ],
-                "extensions": [
-                    ".adoc",
-                    ".asciidoc"
-                ]
-            }
-        ],
-        "grammars": [
-            {
-                "language": "asciidoc",
-                "scopeName": "text.asciidoc",
-                "path": "./syntaxes/asciidoc.tmLanguage"
-            }
-        ],
-        "configuration": {
-            "type": "object",
-            "title": "AsciiDoc Option Configuration",
-            "properties": {
-                "asciidoc.showtitle": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "show header level"
-                },
-                "asciidoc.icons": {
-                    "type": "string",
-                    "default": "font",
-                    "enum": [
-                        "font",
-                        "text",
-                        ""
-                    ],
-                    "description": "used for admonition labels, callout numbers and inline symbols"
-                }
-            }
-        },
-        "keybindings": [
-            {
+        "languages": [{
+            "id": "asciidoc",
+            "aliases": [
+                "AsciiDoc",
+                "AsciiDoctor"
+            ],
+            "extensions": [
+                ".adoc",
+                ".asciidoc"
+            ]
+        }],
+        "grammars": [{
+            "language": "asciidoc",
+            "scopeName": "text.asciidoc",
+            "path": "./syntaxes/asciidoc.tmLanguage"
+        }],
+        "keybindings": [{
                 "command": "asciidoc.previewToSide",
                 "key": "ctrl+shift+r",
                 "when": "editorTextFocus"
@@ -84,8 +58,7 @@
                 "when": "editorTextFocus"
             }
         ],
-        "commands": [
-            {
+        "commands": [{
                 "command": "asciidoc.preview",
                 "title": "Toggle Preview",
                 "category": "AsciiDoc"

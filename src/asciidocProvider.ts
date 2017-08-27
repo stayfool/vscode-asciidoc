@@ -17,21 +17,9 @@ export default class AsciidocProvider implements TextDocumentContentProvider {
     private _onDidChange = new EventEmitter<Uri>()
     private lastPreviewHTML
     private asciidoctor
-    private options
 
     constructor() {
         this.asciidoctor = Asciidoctor()
-        this.options = {
-            attributes: []
-        }
-
-        const config = workspace.getConfiguration('asciidoc')
-        if (config.get('showtitle', true))
-            this.options.attributes.push('showtitle')
-
-        const icons = config.get('icons', 'font')
-        if (icons)
-            this.options.attributes.push('icons:' + icons)
     }
 
     public isAsciidocEditor(editor: TextEditor): boolean {
@@ -51,7 +39,7 @@ export default class AsciidocProvider implements TextDocumentContentProvider {
             return this.errorSnippet("Active editor doesn't show an AsciiDoc document - no properties to preview.")
         }
         return new Promise<string>((resolve, reject) => {
-            this.lastPreviewHTML = this.asciidoctor.convert(editor.document.getText(), this.options)
+            this.lastPreviewHTML = this.asciidoctor.convert(editor.document.getText())
             resolve(this.lastPreviewHTML)
             console.log(this.lastPreviewHTML)
         })
